@@ -9,6 +9,17 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public static final double maxSpeed = 0.8;
+  //IDs
+  public static final int drivetrainLeftFrontID = 1;
+  public static final int drivetrainLeftBackID = 2;
+  public static final int drivetrainRightFrontID = 3;
+  public static final int drivetrainRightBackID = 4;
+  public static final int intakeID = 5;
+  public static final int cameraYawID = 6;
+  public static final int cameraPitchID = 7;
+
+  //Speeds
+  public static final double maxSpeed = 0.5;
   public static final double IntakeSpeed = 0.3;
+  public static final double cameraPanSpeed = 0.1;
 }

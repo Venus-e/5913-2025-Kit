@@ -10,17 +10,22 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
+import frc.robot.Constants.OperatorConstants;
 
 public class Drivetrain extends SubsystemBase {
+  public final CommandXboxController driverController =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort); 
 
-  private TalonSRX driveLeftFront = new TalonSRX(1);
-  private TalonSRX driveLeftBack = new TalonSRX(2);
-  private TalonSRX driveRightFront = new TalonSRX(3);
-  private TalonSRX driveRightBack = new TalonSRX(4);
+  private TalonSRX driveLeftFront = new TalonSRX(Constants.drivetrainLeftFrontID);
+  private TalonSRX driveLeftBack = new TalonSRX(Constants.drivetrainLeftBackID);
+  private TalonSRX driveRightFront = new TalonSRX(Constants.drivetrainRightFrontID);
+  private TalonSRX driveRightBack = new TalonSRX(Constants.drivetrainRightBackID);
 
   public boolean active = false;
 
+  //Motor controller settings
   public Drivetrain() {
     driveLeftFront.configFactoryDefault();
     driveLeftBack.configFactoryDefault();
@@ -45,7 +50,9 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("Initialized", active);
+    SmartDashboard.putBoolean("Movement Enabled", active);
+    SmartDashboard.putNumber("Left Stick Y", driverController.getLeftY());
+    SmartDashboard.putNumber("Left Stick X", driverController.getLeftX());
   }
 
   public void Move(double forward, double rotate) {
@@ -61,5 +68,6 @@ public class Drivetrain extends SubsystemBase {
     driveLeftBack.set(ControlMode.PercentOutput, 0);
     driveRightFront.set(ControlMode.PercentOutput, 0);
     driveRightBack.set(ControlMode.PercentOutput, 0);
+    active = false;
   }
 }
