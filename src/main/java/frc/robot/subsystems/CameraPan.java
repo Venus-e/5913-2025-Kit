@@ -18,36 +18,25 @@ public class CameraPan extends SubsystemBase {
   public final CommandXboxController driverController =
     new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  private TalonSRX yaw = new TalonSRX(Constants.cameraYawID);
-  private TalonSRX pitch = new TalonSRX(Constants.cameraPitchID);
+  private TalonSRX cameraMotor = new TalonSRX(Constants.cameraMotorID);
   
   public CameraPan() {
-    yaw.configFactoryDefault();
-    pitch.configFactoryDefault();
-
-    yaw.setInverted(false);
-    pitch.setInverted(false);
-
-    yaw.clearStickyFaults();
-    pitch.clearStickyFaults();
-
-    yaw.setNeutralMode(NeutralMode.Brake);
-    pitch.setNeutralMode(NeutralMode.Brake);
+    cameraMotor.configFactoryDefault();
+    cameraMotor.setInverted(false);
+    cameraMotor.clearStickyFaults();
+    cameraMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Right Stick Y", driverController.getRightY());
-    SmartDashboard.putNumber("Right Stick X", driverController.getRightX());
   }
 
-  public void panCamera (double setYaw, double setPitch) {
-    yaw.set(ControlMode.PercentOutput, setYaw * Constants.cameraPanSpeed);
-    pitch.set(ControlMode.PercentOutput, setPitch * Constants.cameraPanSpeed);
+  public void panCamera (double setMotor) {
+    cameraMotor.set(ControlMode.PercentOutput, setMotor * Constants.cameraPanSpeed);
   }
 
   public void Stop () {
-    yaw.set(ControlMode.PercentOutput, 0);
-    pitch.set(ControlMode.PercentOutput, 0);
+    cameraMotor.set(ControlMode.PercentOutput, 0);
   }
 }

@@ -28,8 +28,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     driverController.povUp().whileFalse(drivetrain.runEnd(
-      () -> drivetrain.Move(yLimiter.calculate(driverController.getLeftY()),
-              xLimiter.calculate(MathUtil.applyDeadband(driverController.getLeftX(), 0.1))),
+      () -> drivetrain.Move(yLimiter.calculate(
+              MathUtil.applyDeadband(driverController.getLeftY(), 0.1)),
+            xLimiter.calculate(
+              MathUtil.applyDeadband(driverController.getLeftX(), 0.1))),
       () -> drivetrain.Stop()));
     driverController.y().whileTrue(intake.runEnd(
       () -> intake.Out(),
@@ -38,7 +40,7 @@ public class RobotContainer {
       () -> intake.In(),
       () -> intake.Stop())); 
     driverController.povUp().whileFalse(cameraPan.runEnd(
-      () -> cameraPan.panCamera(driverController.getRightX(), driverController.getRightY()),
+      () -> cameraPan.panCamera(driverController.getRightY()),
       () -> cameraPan.Stop()));   
   }
 

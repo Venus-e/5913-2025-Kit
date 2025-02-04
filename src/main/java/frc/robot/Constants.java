@@ -15,8 +15,7 @@ public final class Constants {
   public static final int drivetrainRightFrontID = 3;
   public static final int drivetrainRightBackID = 4;
   public static final int intakeID = 5;
-  public static final int cameraYawID = 6;
-  public static final int cameraPitchID = 7;
+  public static final int cameraMotorID = 6;
 
   //Speeds
   public static final double maxSpeed = 0.5;
