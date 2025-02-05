@@ -5,9 +5,8 @@
 package frc.robot;
 
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+  //Controllers
+  public static final int kDriverControllerPort = 0;
 
   //IDs
   public static final int drivetrainLeftFrontID = 1;
@@ -15,7 +14,7 @@ public final class Constants {
   public static final int drivetrainRightFrontID = 3;
   public static final int drivetrainRightBackID = 4;
   public static final int intakeID = 5;
-  public static final int cameraMotorID = 6;
+  public static final int cameraID = 6;
 
   //Speeds
   public static final double maxSpeed = 0.5;

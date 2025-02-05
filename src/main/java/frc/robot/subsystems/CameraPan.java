@@ -12,19 +12,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
-import frc.robot.Constants.OperatorConstants;
 
 public class CameraPan extends SubsystemBase {
   public final CommandXboxController driverController =
-    new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    new CommandXboxController(Constants.kDriverControllerPort);
 
-  private TalonSRX cameraMotor = new TalonSRX(Constants.cameraMotorID);
+  private TalonSRX camera = new TalonSRX(Constants.cameraID);
   
   public CameraPan() {
-    cameraMotor.configFactoryDefault();
-    cameraMotor.setInverted(false);
-    cameraMotor.clearStickyFaults();
-    cameraMotor.setNeutralMode(NeutralMode.Brake);
+    camera.configFactoryDefault();
+    camera.setInverted(false);
+    camera.clearStickyFaults();
+    camera.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override
@@ -33,10 +32,10 @@ public class CameraPan extends SubsystemBase {
   }
 
   public void panCamera (double setMotor) {
-    cameraMotor.set(ControlMode.PercentOutput, setMotor * Constants.cameraPanSpeed);
+    camera.set(ControlMode.PercentOutput, setMotor * Constants.cameraPanSpeed);
   }
 
   public void Stop () {
-    cameraMotor.set(ControlMode.PercentOutput, 0);
+    camera.set(ControlMode.PercentOutput, 0);
   }
 }

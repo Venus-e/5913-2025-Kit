@@ -4,14 +4,17 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.*;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 public class RobotContainer {
+  public final Camera camera = new Camera();
   public final Drivetrain drivetrain = new Drivetrain();
   public final Intake intake = new Intake();
   public final CameraPan cameraPan = new CameraPan();
@@ -20,9 +23,15 @@ public class RobotContainer {
   private SlewRateLimiter yLimiter = new SlewRateLimiter(40);
 
   public final CommandXboxController driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort); 
+      new CommandXboxController(Constants.kDriverControllerPort); 
+
+  private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
+    autoChooser = AutoBuilder.buildAutoChooser("test");
+
+    SmartDashboard.putData("Selected Auto", autoChooser);
+
     configureBindings();
   }
 
@@ -33,18 +42,18 @@ public class RobotContainer {
             xLimiter.calculate(
               MathUtil.applyDeadband(driverController.getLeftX(), 0.1))),
       () -> drivetrain.Stop()));
-    driverController.y().whileTrue(intake.runEnd(
+    driverController.x().whileTrue(intake.runEnd(
       () -> intake.Out(),
       () -> intake.Stop())); 
-    driverController.a().whileTrue(intake.runEnd(
+    driverController.b().whileTrue(intake.runEnd(
       () -> intake.In(),
       () -> intake.Stop())); 
     driverController.povUp().whileFalse(cameraPan.runEnd(
-      () -> cameraPan.panCamera(driverController.getRightY()),
+      () -> cameraPan.panCamera(MathUtil.applyDeadband(driverController.getRightY(), 0.1)),
       () -> cameraPan.Stop()));   
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return autoChooser.getSelected();
   }
 }

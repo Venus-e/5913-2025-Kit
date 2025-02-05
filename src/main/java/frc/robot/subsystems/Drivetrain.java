@@ -12,11 +12,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
-import frc.robot.Constants.OperatorConstants;
 
 public class Drivetrain extends SubsystemBase {
   public final CommandXboxController driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort); 
+      new CommandXboxController(Constants.kDriverControllerPort); 
 
   private TalonSRX driveLeftFront = new TalonSRX(Constants.drivetrainLeftFrontID);
   private TalonSRX driveLeftBack = new TalonSRX(Constants.drivetrainLeftBackID);
@@ -25,7 +24,6 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean active = false;
 
-  //Motor controller settings
   public Drivetrain() {
     driveLeftFront.configFactoryDefault();
     driveLeftBack.configFactoryDefault();
