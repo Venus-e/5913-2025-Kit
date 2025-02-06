@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Camera extends SubsystemBase {
@@ -13,8 +11,7 @@ public class Camera extends SubsystemBase {
   public final String limelight = "limelight";
 
   public Camera() {
-    HttpCamera camera = new HttpCamera("kitLimelight", "10.59.13.76:5800");
-    CameraServer.addCamera(camera);
+
   }
 
   @Override
